@@ -1,6 +1,5 @@
 (ns frontend.modules.instrumentation.posthog
-  (:require ["posthog-js" :as posthog]
-            [cljs-bean.core :as bean]
+  (:require [cljs-bean.core :as bean]
             [frontend.config :as config]
             [frontend.mobile.util :as mobile-util]
             [frontend.util :as util]
@@ -10,24 +9,8 @@
 (def ^:const masked "masked")
 
 (defn register []
-  (posthog/register
-   (clj->js
-    {:app_type (let [platform (mobile-util/platform)]
-                 (cond
-                   (util/electron?)
-                   "electron"
-
-                   platform
-                   platform
-
-                   :else
-                   "web"))
-     :app_env (if config/dev? "development" "production")
-     :app_ver version
-     :schema_ver 0
-     ;; hack, did not find ways to hack data on-the-fly with posthog-js
-     :$current_url masked
-     :$pathname masked})))
+  ;; Analytics disabled - PostHog register is a no-op
+  nil)
 
 (def config
   {:api_host "https://app.posthog.com"
