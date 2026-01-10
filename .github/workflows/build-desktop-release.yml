@@ -291,6 +291,7 @@ jobs:
           mv static\out\make\squirrel.windows\x64\RELEASES builds\RELEASES
 
       - name: Sign
+        if: github.repository == 'logseq/logseq' && secrets.AZURE_CLIENT_ID != ''
         uses: azure/trusted-signing-action@v0.5.9
         with:
           azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
@@ -356,6 +357,7 @@ jobs:
           mv static\out\make\squirrel.windows\arm64\RELEASES builds\RELEASES
 
       - name: Sign
+        if: github.repository == 'logseq/logseq' && secrets.AZURE_CLIENT_ID != ''
         uses: azure/trusted-signing-action@v0.5.9
         with:
           azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
