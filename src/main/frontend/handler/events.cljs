@@ -3,8 +3,7 @@
   core.async channel to handle them. Any part of the system can dispatch
   one of these events using state/pub-event!"
   (:refer-clojure :exclude [run!])
-  (:require ["@sentry/react" :as Sentry]
-            [cljs-bean.core :as bean]
+  (:require [cljs-bean.core :as bean]
             [clojure.core.async :as async]
             [clojure.string :as string]
             [frontend.commands :as commands]
@@ -35,7 +34,6 @@
             [frontend.handler.shell :as shell-handler]
             [frontend.handler.ui :as ui-handler]
             [frontend.mobile.util :as mobile-util]
-            [frontend.modules.instrumentation.posthog :as posthog]
             [frontend.modules.outliner.pipeline :as pipeline]
             [frontend.modules.outliner.ui :as ui-outliner-tx]
             [frontend.modules.shortcut.core :as st]

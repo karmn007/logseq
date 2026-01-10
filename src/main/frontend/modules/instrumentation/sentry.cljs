@@ -1,6 +1,5 @@
 (ns frontend.modules.instrumentation.sentry
-  (:require ["@sentry/react" :as Sentry]
-            [frontend.config :as config]
+  (:require [frontend.config :as config]
             [frontend.mobile.util :as mobile-util]
             [frontend.util :as util]
             [frontend.version :refer [version]]))
