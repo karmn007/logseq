@@ -1,32 +1,41 @@
 const path = require('path')
 const fs = require('fs')
 
+// Only enable macOS signing/notarization if Apple credentials are provided
+const shouldNotarize = !!(process.env.APPLE_ID && process.env.APPLE_ID_PASSWORD && process.env.APPLE_TEAM_ID);
+
+const packagerConfig = {
+  name: 'Logseq',
+  icon: './icons/logseq_big_sur.icns',
+  buildVersion: "90",
+  protocols: [
+    {
+      "protocol": "logseq",
+      "name": "logseq",
+      "schemes": "logseq"
+    }
+  ]
+};
+
+// Add macOS signing/notarization only if credentials are available
+if (shouldNotarize) {
+  packagerConfig.osxSign = {
+    identity: 'Developer ID Application: Tiansheng Qin',
+    'hardened-runtime': true,
+    entitlements: 'entitlements.plist',
+    'entitlements-inherit': 'entitlements.plist',
+    'signature-flags': 'library'
+  };
+  packagerConfig.osxNotarize = {
+    tool: 'notarytool',
+    appleId: process.env['APPLE_ID'],
+    appleIdPassword: process.env['APPLE_ID_PASSWORD'],
+    teamId: process.env['APPLE_TEAM_ID']
+  };
+}
+
 module.exports = {
-  packagerConfig: {
-    name: 'Logseq',
-    icon: './icons/logseq_big_sur.icns',
-    buildVersion: "90",
-    protocols: [
-      {
-        "protocol": "logseq",
-        "name": "logseq",
-        "schemes": "logseq"
-      }
-    ],
-    osxSign: {
-      identity: 'Developer ID Application: Tiansheng Qin',
-      'hardened-runtime': true,
-      entitlements: 'entitlements.plist',
-      'entitlements-inherit': 'entitlements.plist',
-      'signature-flags': 'library'
-    },
-    osxNotarize: {
-      tool: 'notarytool',
-      appleId: process.env['APPLE_ID'],
-      appleIdPassword: process.env['APPLE_ID_PASSWORD'],
-      teamId: process.env['APPLE_TEAM_ID']
-    },
-  },
+  packagerConfig,
   makers: [
     {
       'name': '@electron-forge/maker-squirrel',
