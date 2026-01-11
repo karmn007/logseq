@@ -596,7 +596,7 @@ jobs:
           sha256sum *-darwin-* > SHA256SUMS.txt
           sha256sum *-win-* >> SHA256SUMS.txt
           sha256sum *-linux-* >> SHA256SUMS.txt
-          sha256sum *.apk >> SHA256SUMS.txt
+          sha256sum *.apk >> SHA256SUMS.txt 2>/dev/null || true
           cat SHA256SUMS.txt
 
       - name: List files
@@ -697,7 +697,7 @@ jobs:
           sha256sum *-darwin-* > SHA256SUMS.txt
           sha256sum *-win-* >> SHA256SUMS.txt
           sha256sum *-linux-* >> SHA256SUMS.txt
-          sha256sum *.apk >> SHA256SUMS.txt
+          sha256sum *.apk >> SHA256SUMS.txt 2>/dev/null || true
           sha256sum RELEASES >> SHA256SUMS.txt
           cat SHA256SUMS.txt
 
