@@ -612,8 +612,15 @@ jobs:
           draft: false
           prerelease: ${{ (github.event_name == 'workflow_dispatch' && github.event.inputs.is-pre-release) || (github.event_name == 'schedule')}}
           body: |
-            This is a nightly release of the Logseq desktop app.
-            It's unstable compared to the official releases, **use it with caution**!
+            ## ⚠️ Analytics-Free Nightly Build (Unsigned)
+
+            This is a **nightly** analytics-free build - unstable, use with caution!
+
+            **Unsigned builds - security warnings expected:**
+            - **macOS:** "damaged" error → Run `xattr -cr /Applications/Logseq.app`
+            - **Windows:** SmartScreen warning → Click "More info" → "Run anyway"
+
+            **Privacy:** Zero telemetry - all Sentry/PostHog tracking removed.
           files: |
             ./SHA256SUMS.txt
             ./*.zip
@@ -656,7 +663,7 @@ jobs:
       - name: Download The Windows Artifact
         uses: actions/download-artifact@v4
         with:
-          name: logseq-win-x64-builds
+          name: logseq-win64-builds
           path: ./
 
       - name: Download The Windows Artifact
@@ -701,7 +708,33 @@ jobs:
         with:
           tag_name: ${{ steps.ref.outputs.version }}
           name: Desktop APP ${{ steps.ref.outputs.version }} (Beta Testing)
-          body: "TODO: Fill this changelog. Sorry for the inconvenience!"
+          body: |
+            ## ⚠️ Analytics-Free Unsigned Build
+
+            This is an **analytics and telemetry-free** build of Logseq with all Sentry and PostHog tracking completely removed.
+
+            **Important:** These builds are **unsigned** and will show security warnings on macOS and Windows.
+
+            ### macOS Users
+            If you see "Logseq is damaged and can't be opened", run this command:
+            ```bash
+            xattr -cr /Applications/Logseq.app
+            ```
+
+            ### Windows Users
+            You may see a SmartScreen warning. Click "More info" → "Run anyway"
+
+            ### Linux Users
+            No additional steps needed. The AppImage should work normally.
+
+            ---
+
+            **What's removed:**
+            - ✅ Sentry error tracking
+            - ✅ PostHog analytics
+            - ✅ All telemetry and data collection
+
+            This build is completely privacy-focused with zero external tracking.
           draft: ${{ github.event.inputs.is-draft }}
           prerelease: ${{ github.event.inputs.is-pre-release }}
           files: |

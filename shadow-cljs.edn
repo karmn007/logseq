@@ -39,9 +39,9 @@
                           lambdaisland.glogi.console/timestamp "true"
                           goog.debug.LOGGING_ENABLED true
                           frontend.config/ENABLE-PLUGINS #shadow/env ["ENABLE_PLUGINS" :as :bool :default true]
-                          ;; Set to switch file sync server to dev, set this to false in `yarn watch`
-                          frontend.config/ENABLE-FILE-SYNC-PRODUCTION #shadow/env ["ENABLE_FILE_SYNC_PRODUCTION" :as :bool :default true]
-                          frontend.config/ENABLE-RTC-SYNC-PRODUCTION #shadow/env ["ENABLE_RTC_SYNC_PRODUCTION" :as :bool :default true]
+                          ;; PRIVACY: Sync disabled by default for confidential data use
+                          frontend.config/ENABLE-FILE-SYNC-PRODUCTION #shadow/env ["ENABLE_FILE_SYNC_PRODUCTION" :as :bool :default false]
+                          frontend.config/ENABLE-RTC-SYNC-PRODUCTION #shadow/env ["ENABLE_RTC_SYNC_PRODUCTION" :as :bool :default false]
                           frontend.config/REVISION #shadow/env ["LOGSEQ_REVISION" :default "dev"]} ;; set by git-revision-hook
 
         :devtools {:before-load frontend.core/stop          ;; before live-reloading any code call this function
@@ -139,9 +139,9 @@
             lambdaisland.glogi.console/timestamp "true"
             goog.debug.LOGGING_ENABLED true
             ;; frontend.config/ENABLE-PLUGINS #shadow/env ["ENABLE_PLUGINS" :as :bool :default true]
-            ;; Set to switch file sync server to dev, set this to false in `yarn watch`
-            frontend.config/ENABLE-FILE-SYNC-PRODUCTION #shadow/env ["ENABLE_FILE_SYNC_PRODUCTION" :as :bool :default true]
-            frontend.config/ENABLE-RTC-SYNC-PRODUCTION #shadow/env ["ENABLE_RTC_SYNC_PRODUCTION" :as :bool :default true]
+            ;; PRIVACY: Sync disabled by default for confidential data use
+            frontend.config/ENABLE-FILE-SYNC-PRODUCTION #shadow/env ["ENABLE_FILE_SYNC_PRODUCTION" :as :bool :default false]
+            frontend.config/ENABLE-RTC-SYNC-PRODUCTION #shadow/env ["ENABLE_RTC_SYNC_PRODUCTION" :as :bool :default false]
             frontend.config/REVISION #shadow/env ["LOGSEQ_REVISION" :default "dev"]}
 
            :devtools {:before-load mobile.core/stop!          ;; before live-reloading any code call this function
