@@ -455,9 +455,9 @@ jobs:
         run: yarn install && yarn rebuild:all && yarn electron:make
         working-directory: ./static
         env:
-          APPLE_ID: ${{ secrets.APPLE_ID_EMAIL }}
-          APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
-          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          APPLE_ID: ${{ github.repository == 'logseq/logseq' && secrets.APPLE_ID_EMAIL || '' }}
+          APPLE_ID_PASSWORD: ${{ github.repository == 'logseq/logseq' && secrets.APPLE_ID_PASSWORD || '' }}
+          APPLE_TEAM_ID: ${{ github.repository == 'logseq/logseq' && secrets.APPLE_TEAM_ID || '' }}
 
       - name: Save x64 artifacts
         run: |
@@ -532,9 +532,9 @@ jobs:
         run: yarn electron:make-macos-arm64
         working-directory: ./static
         env:
-          APPLE_ID: ${{ secrets.APPLE_ID_EMAIL }}
-          APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
-          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          APPLE_ID: ${{ github.repository == 'logseq/logseq' && secrets.APPLE_ID_EMAIL || '' }}
+          APPLE_ID_PASSWORD: ${{ github.repository == 'logseq/logseq' && secrets.APPLE_ID_PASSWORD || '' }}
+          APPLE_TEAM_ID: ${{ github.repository == 'logseq/logseq' && secrets.APPLE_TEAM_ID || '' }}
 
       - name: Save arm64 artifacts
         run: |
