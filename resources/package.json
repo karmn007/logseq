@@ -23,7 +23,6 @@
   "dependencies": {
     "@fastify/cors": "11.0.1",
     "@logseq/rsapi": "0.0.92",
-    "@sentry/electron": "2.5.1",
     "abort-controller": "3.0.0",
     "better-sqlite3": "12.4.1",
     "chokidar": "^3.5.1",
@@ -41,7 +40,6 @@
     "https-proxy-agent": "7.0.2",
     "node-fetch": "2.6.7",
     "open": "7.3.1",
-    "posthog-js": "1.10.2",
     "semver": "7.5.2",
     "socks-proxy-agent": "8.0.2",
     "update-electron-app": "2.0.1"
