@@ -3,7 +3,6 @@
             [frontend.util :as util]
             [frontend.config :as config]
             [medley.core :as medley]
-            ["@sentry/react" :as Sentry]
             [frontend.mobile.util :as mobile-util]))
 
 (goog-define SENTRY-DSN "")
@@ -59,11 +58,10 @@
                  event)})
 
 (defn init []
-  (when (and (not config/dev?) (not-empty SENTRY-DSN))
-    (let [config (clj->js config)]
-      (Sentry/init config))))
+  ;; Analytics disabled - Sentry initialization is a no-op
+  nil)
 
 (defn set-user!
   [id]
-  (Sentry/configureScope (fn [scope]
-                           (.setUser scope #js {:id id}))))
+  ;; Analytics disabled - Sentry user setting is a no-op
+  nil)

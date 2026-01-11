@@ -4,7 +4,6 @@
   one of these events using state/pub-event!"
   (:refer-clojure :exclude [run!])
   (:require ["@capacitor/filesystem" :refer [Directory Filesystem]]
-            ["@sentry/react" :as Sentry]
             [electron.ipc :as ipc]
             [frontend.idb :as idb]
             [cljs-bean.core :as bean]
@@ -55,7 +54,6 @@
             [frontend.mobile.core :as mobile]
             [frontend.mobile.graph-picker :as graph-picker]
             [frontend.mobile.util :as mobile-util]
-            [frontend.modules.instrumentation.posthog :as posthog]
             [frontend.modules.instrumentation.sentry :as sentry-event]
             [frontend.modules.outliner.file :as outliner-file]
             [frontend.modules.shortcut.core :as st]
@@ -440,18 +438,12 @@
   (page-handler/create-today-journal!))
 
 (defmethod handle :instrument [[_ {:keys [type payload] :as opts}]]
-  (when-not (empty? (dissoc opts :type :payload))
-    (js/console.error "instrument data-map should only contains [:type :payload]"))
-  (posthog/capture type payload))
+  ;; Analytics disabled - instrumentation event is a no-op
+  nil)
 
 (defmethod handle :capture-error [[_ {:keys [error payload]}]]
-  (let [[user-uuid graph-uuid tx-id] @sync/graphs-txid
-        payload (assoc payload
-                       :user-id user-uuid
-                       :graph-id graph-uuid
-                       :tx-id tx-id)]
-    (Sentry/captureException error
-                             (bean/->js {:tags payload}))))
+  ;; Analytics disabled - error capture is a no-op
+  nil)
 
 (defmethod handle :exec-plugin-cmd [[_ {:keys [pid cmd action]}]]
   (commands/exec-plugin-simple-command! pid cmd action))
